@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TelecomConecta | open5Gcube - Laboratorio de Redes 5G - UNFV</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{
+  background:#020617;
+  background-image:linear-gradient(rgba(2,6,23,.55), rgba(2,6,23,.55)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2000&q=90');
+  background-size:cover;background-position:center;background-attachment:fixed;background-repeat:no-repeat;
+  color:white;line-height:1.6;text-shadow:0 1px 4px rgba(0,0,0,.7);
+}
+/* FONDO DEL TITULO Y SUBTITULO - IMAGEN ANCHA, OCUPA TODO EL ESPACIO, MAS CLARA */
+header{
+  background:linear-gradient(90deg, rgba(0,0,0,.45), rgba(30,41,59,.45), rgba(0,0,0,.45)), url('Screenshot%202026-11-21%20163110.png');
+  background-size:100% 100%;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-color:#000000;
+  padding:14px 10px 14px 8px;border-bottom:4px solid #f97316;position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:flex-start;gap:18px;flex-wrap:wrap
+}
+.col-izquierda{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0}
+.logo-facultad{
+  width:100%;max-width:280px;height:auto;display:block;
+  background:#ffffff;padding:10px 12px;border-radius:14px;
+  border:3px solid #f97316;object-fit:contain;
+  filter:brightness(1.18) contrast(1.12) saturate(1.25);
+  box-shadow:0 0 18px rgba(249,115,22,.9), 0 0 35px rgba(250,204,21,.65), 0 8px 20px rgba(0,0,0,.6);
+  animation:brillo 2.2s ease-in-out infinite;
+}
+@keyframes brillo{
+  0%,100%{box-shadow:0 0 18px rgba(249,115,22,.9), 0 0 35px rgba(250,204,21,.65); transform:scale(1)}
+  50%{box-shadow:0 0 28px rgba(249,115,22,1), 0 0 55px rgba(250,204,21,.9); transform:scale(1.03)}
+}
+#saludo{background:#f97316;color:white;font-weight:bold;text-align:center;padding:8px 14px;border-radius:20px;font-size:16px;line-height:1.3;box-shadow:0 0 12px rgba(249,115,22,.8);width:100%;max-width:280px}
+#saludo small{display:block;font-size:13px;font-weight:normal;color:#fff7ed}
+header .titulo{text-align:left;flex:1;min-width:280px}
+header h1{color:white;font-size:38px;line-height:1.1;text-shadow:0 0 15px rgba(249,115,22,.8)}
+header .subtitulo{color:#22d3ee;font-size:22px;font-weight:bold;margin-top:4px;text-shadow:0 0 10px rgba(34,211,238,.7)}
+header p{color:#fde68a;font-size:16px;font-weight:bold}
+@media(max-width:600px){header{justify-content:center}.col-izquierda{width:100%}.logo-facultad{max-width:260px}header .titulo{text-align:center}}
+nav{background:#f97316;display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:12px}
+nav a{background:#020617;color:white;text-decoration:none;padding:10px 18px;border-radius:20px;font-weight:bold}
+nav a:hover{background:white;color:black;transform:scale(1.05)}
+.hero{text-align:center;padding:45px 20px;background:rgba(0,0,0,.35)}
+.hero h2{font-size:38px;color:#facc15;margin-bottom:10px;text-shadow:0 2px 10px black}
+.hero p{max-width:800px;margin:10px auto;font-size:18px;background:rgba(0,0,0,.45);padding:12px;border-radius:12px}
+.btn{display:inline-block;margin:12px 6px;background:#f97316;color:white;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:bold;font-size:18px}
+.btn2{background:white;color:black}
+.layout{max-width:1250px;margin:auto;padding:20px;display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.video-lateral{position:sticky;top:110px;background:rgba(0,0,0,.92);border:2px solid #f97316;border-radius:18px;padding:14px;z-index:10}
+.video-lateral h3{color:#facc15;font-size:17px;text-align:center;line-height:1.4}
+.video-chico{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:black;border:2px solid #333;margin-top:10px}
+.video-chico iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.container{max-width:100%;margin:0;padding:0}
+section{background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.45);border-radius:20px;padding:25px;margin-bottom:25px;backdrop-filter:blur(2px)}
+section h2{color:#facc15;margin-bottom:12px;border-left:6px solid #f97316;padding-left:10px}
+section h3{color:#22d3ee;margin:18px 0 8px 0}
+.cajas{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;margin-top:15px}
+.caja{background:white;color:#020617;width:280px;padding:20px;border-radius:15px;text-align:center}
+.caja span{font-size:42px}
+.caja h3{color:#020617}
+table{width:100%;border-collapse:collapse;margin-top:12px;background:white;color:#020617;border-radius:10px;overflow:hidden}
+th{background:#020617;color:white;padding:12px}
+td{padding:12px;text-align:left;border-bottom:1px solid #ddd}
+td:first-child{font-weight:bold}
+tr:nth-child(even){background:#f3f4f6}
+code{background:#020617;color:#facc15;padding:3px 8px;border-radius:6px;font-size:14px}
+pre{background:#020617;color:#e2e8f0;padding:14px;border-radius:12px;overflow-x:auto;margin:10px 0;font-size:14px;line-height:1.5;border:1px solid #f97316}
+pre b{color:#facc15}
+ul,ol{margin-left:20px;margin-bottom:10px}
+li{margin-bottom:6px}
+.enlaces a{color:#facc15;font-weight:bold}
+.enlaces a:hover{color:white}
+form{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+input,select,textarea{padding:12px;border-radius:10px;border:none;font-size:16px}
+button{background:#f97316;border:none;padding:14px;border-radius:10px;font-weight:bold;font-size:18px;cursor:pointer;color:white}
+button:hover{background:white;color:black}
+.info-extra{background:#f97316;color:white;text-align:center;border-radius:15px;padding:20px}
+.info-azul{background:#0ea5e9;color:white;text-align:center;border-radius:15px;padding:20px}
+footer{text-align:center;background:black;padding:20px;color:#94a3b8}
+footer a{color:#facc15}
+@media(max-width:600px){.hero h2{font-size:28px}.video-lateral{position:static}body{background-attachment:scroll}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="col-izquierda">
+<img class="logo-facultad" src="Screenshot%202026-11-19%20104813.png" alt="Facultad de Ingeniería Electrónica e Informática - UNFV">
+<div id="saludo">Cargando saludo...</div>
+</div>
+<div class="titulo">
+<h1>📡 TelecomConecta</h1>
+<div class="subtitulo">open5Gcube - Laboratorio de Redes Móviles 2G, 4G y 5G</div>
+<p>Internet, Fibra Óptica, Redes 5G y Telecomunicaciones - UNFV - Por Alejandro</p>
+</div>
+</header>
+
+<nav>
+<a href="#inicio">Inicio</a>
+<a href="#que-es">¿Qué es?</a>
+<a href="#como-funciona">¿Cómo Funciona?</a>
+<a href="#componentes">Componentes</a>
+<a href="#instalacion">Instalación</a>
+<a href="#configuracion">Configuración</a>
+<a href="#uso">Uso</a>
+<a href="#problemas">Problemas</a>
+<a href="#contacto">Contacto</a>
+</nav>
+
+<div class="hero" id="inicio">
+<h2>TelecomConecta + open5Gcube</h2>
+<p>En <strong>TelecomConecta</strong> ahora te explicamos <strong>open5Gcube</strong>: el framework que te permite crear tu propia red de celular 5G en tu computadora, sin ser una operadora como Movistar o Claro.</p>
+<a class="btn" href="#que-es">¿Qué es open5Gcube? 👇</a>
+<a class="btn btn2" href="#instalacion">Cómo se Instala 👇</a>
+</div>
+
+<div class="layout">
+<div class="container">
+
+<section id="que-es">
+<h2>1. ¿Qué es open5Gcube?</h2>
+<p><strong>open5Gcube</strong> es un <strong>framework modular de código abierto</strong> diseñado para construir y gestionar <strong>laboratorios de redes móviles</strong>.</p>
+<p>Integra múltiples proyectos de redes móviles de código abierto de <strong>2G, 4G y 5G</strong> en un entorno de gestión unificado.</p>
+<p>Su propósito es facilitar <strong>experimentos reproducibles</strong> en investigación, pruebas y educación, permitiendo desplegar redes de acceso radio (RAN), redes centrales (CN) y componentes de soporte de manera personalizable y extensible.</p>
+<h3>¿Qué problema resuelve?</h3>
+<ul>
+<li><strong>Soluciones comerciales:</strong> son estables, pero costosas y cerradas.</li>
+<li><strong>Soluciones de código abierto:</strong> son flexibles, pero tienen curva de aprendizaje alta y problemas de compatibilidad.</li>
+<li><strong>open5Gcube combina lo mejor de ambos:</strong> adaptabilidad del código abierto + facilidad de uso para configuraciones experimentales.</li>
+</ul>
+<div class="info-azul">
+<h3>💡 En palabras simples</h3>
+<p>Es como tener tu propia operadora de celular en tu PC: antena, núcleo, chip SIM y celular, todo con software gratis.</p>
+</div>
+<h3>¿Qué relación tiene con Telecomunicaciones?</h3>
+<ul>
+<li>La antena que da señal = <strong>gNodeB</strong></li>
+<li>El cerebro que controla la red = <strong>Núcleo 5G (Open5GS)</strong></li>
+<li>El chip SIM = <strong>IMSI, KEY, OPC</strong></li>
+<li>El celular = <strong>UE de UERANSIM</strong></li>
+</ul>
+<h3>Relevancia para la formación en Telecomunicaciones</h3>
+<ul>
+<li><strong>Democratiza el acceso:</strong> experimentar con 5G sin infraestructura costosa.</li>
+<li><strong>Integra múltiples tecnologías:</strong> RAN, núcleo y UE en un solo entorno.</li>
+<li><strong>Facilita la reproducibilidad:</strong> los experimentos se pueden replicar y comparar.</li>
+<li><strong>Prepara para el mundo laboral:</strong> habilidades en Docker, orquestación de servicios y configuración de redes 5G muy demandadas.</li>
+</ul>
+</section>
+
+<section id="como-funciona">
+<h2>2. ¿Cómo Funciona open5Gcube?</h2>
+<p>open5Gcube funciona con <strong>contenedores Docker</strong>. Cada parte de la red de celular corre en su propio contenedor, aislado de los demás.</p>
+<h3>2.1. Contenedores Docker y Docker Compose</h3>
+<ul>
+<li><strong>Aislamiento:</strong> Los servicios no interfieren entre sí.</li>
+<li><strong>Reproducibilidad:</strong> Las configuraciones son consistentes en diferentes entornos.</li>
+<li><strong>Portabilidad:</strong> El framework puede desplegarse en diversas plataformas de hardware.</li>
+</ul>
+<p>La orquestación remota se hace con <strong>SSH y Docker-outside-of-Docker (DooD)</strong>, para distribuir la carga en múltiples hosts físicos.</p>
+<h3>2.2. Stacks de Red Pre-construidos</h3>
+<p>Ejemplo: <strong>OpenAirInterface (OAI) como RAN + Open5GS como núcleo</strong>. Esta modularidad permite elegir y combinar diferentes implementaciones según la necesidad experimental.</p>
+<h3>2.3. Redes Virtuales Docker</h3>
+<table>
+<tr><th>Red</th><th>¿Para qué sirve?</th></tr>
+<tr><td>corenet</td><td>Comunicación entre las funciones del núcleo. Usa macvlan para asignar IP directo desde la red física.</td></tr>
+<tr><td>rannet</td><td>Comunicación entre la RAN y el núcleo.</td></tr>
+<tr><td>uenet</td><td>Comunicación de los equipos de usuario (UE).</td></tr>
+</table>
+<h3>2.4. WebUI para Control y Monitoreo</h3>
+<ul>
+<li>Configurar, iniciar y detener stacks específicos.</li>
+<li>Visualizar el estado de salud de los contenedores en tiempo real.</li>
+<li>Acceder a los logs de los servicios.</li>
+<li>Gestionar VoLTE basada en Open5GS + Kamailio IMS.</li>
+<li>Leer y escribir tarjetas SIM mediante pySim.</li>
+</ul>
+<h3>2.5. Soporte para Hardware SDR y Emulación</h3>
+<p>Soporta <strong>hardware SDR físico (USRP X310 / B210)</strong> como <strong>configuraciones emuladas</strong>.</p>
+<h3>2.6. Flujo de Trabajo Típico</h3>
+<ol>
+<li><strong>Preparación:</strong> Docker, Docker Compose, SSH.</li>
+<li><strong>Clonación:</strong> Obtener código desde GitHub.</li>
+<li><strong>Configuración:</strong> Variables en archivos .env para IPs, PLMN, bandas.</li>
+<li><strong>Construcción:</strong> <code>make build-cacher-start docker-build-all</code> - varias horas.</li>
+<li><strong>Despliegue:</strong> Desde WebUI o línea de comandos.</li>
+<li><strong>Verificación:</strong> Estado de contenedores y conectividad de UEs.</li>
+<li><strong>Experimentación:</strong> ping, iperf3, captura de tráfico.</li>
+</ol>
+</section>
+
+<section id="componentes">
+<h2>3. Componentes Principales Integrados</h2>
+<div class="cajas">
+<div class="caja"><span>🧠</span><h3>Open5GS</h3><p>Núcleo 5G (5GC) basado en 3GPP. Incluye AMF, SMF, UPF, NRF.</p></div>
+<div class="caja"><span>📡</span><h3>OpenAirInterface (OAI)</h3><p>RAN que implementa eNB / gNB y UE.</p></div>
+<div class="caja"><span>📱</span><h3>UERANSIM</h3><p>Simulador de UE y RAN para 5G.</p></div>
+</div>
+<div class="cajas">
+<div class="caja"><span>📶</span><h3>srsRAN</h3><p>RAN 4G y 5G, compatible con SDR.</p></div>
+<div class="caja"><span>📞</span><h3>osmocom</h3><p>Proyectos para redes 2G y 3G.</p></div>
+<div class="caja"><span>💳</span><h3>pySim</h3><p>Herramientas para provisión de tarjetas SIM.</p></div>
+</div>
+<h3>¿Qué hace cada función del núcleo 5G?</h3>
+<table>
+<tr><th>Función</th><th>¿Qué hace?</th></tr>
+<tr><td>AMF</td><td>Gestiona acceso y movilidad, registro del UE.</td></tr>
+<tr><td>SMF</td><td>Gestiona sesiones y asignación de IP.</td></tr>
+<tr><td>UPF</td><td>Transporta los datos del usuario (internet).</td></tr>
+<tr><td>NRF</td><td>Registro de funciones de red.</td></tr>
+<tr><td>NSSF</td><td>Selección de slice de red.</td></tr>
+</table>
+</section>
+
+<section id="instalacion">
+<h2>4. ¿Cómo se Instala open5Gcube?</h2>
+<h3>4.1. Requisitos - Hardware</h3>
+<table>
+<tr><th>Componente</th><th>Mínimo</th><th>Recomendado</th></tr>
+<tr><td>CPU</td><td>x86_64, 4 núcleos</td><td>8+ núcleos (Intel i9 o superior)</td></tr>
+<tr><td>RAM</td><td>16 GB</td><td>32 GB (92 GB para experimentos prolongados)</td></tr>
+<tr><td>Almacenamiento</td><td>50 GB libres</td><td>200 GB</td></tr>
+<tr><td>Sistema Operativo</td><td>Ubuntu 22.04 LTS</td><td>Ubuntu 22.04 LTS</td></tr>
+<tr><td>Kernel</td><td>5.15+</td><td>6.8.0 (con soporte TC-BPF)</td></tr>
+</table>
+<h3>4.2. Configuración del BIOS</h3>
+<ol>
+<li>Hyper-Threading deshabilitado</li>
+<li>C-States deshabilitado</li>
+<li>Intel SpeedStep deshabilitado</li>
+<li>CPU Frequency Control y P-States deshabilitados</li>
+</ol>
+<h3>4.3. Sistema Operativo</h3>
+<pre>sudo apt install linux-image-lowlatency linux-headers-lowlatency
+sudo apt install linux-tools-lowlatency</pre>
+<h3>4.4. Paso 1: Paquetes</h3>
+<pre>sudo apt update && sudo apt upgrade -y
+sudo apt install -y linux-tools-common net-tools make git-lfs \
+  ca-certificates curl gnupg openssh-server python3-virtualenv</pre>
+<h3>4.5. Paso 2: Clonar Repositorio</h3>
+<pre>git clone https://github.com/open5Gcube/open5Gcube/
+cd open5Gcube</pre>
+<h3>4.6. Paso 3: Docker</h3>
+<pre>make system-install-docker
+sudo usermod -aG docker $USER</pre>
+<h3>4.7. Paso 4: Servicio de Inicio</h3>
+<pre>make systemd-install-unit</pre>
+<h3>4.8. Paso 5: Construir Imágenes - Varias horas</h3>
+<pre>make build-cacher-start docker-build-all</pre>
+<h3>4.9. Paso 6: Iniciar WebUI</h3>
+<pre>make webui-start</pre>
+<p>Accede en: <code>http://&lt;IP_del_host&gt;</code> puerto 80</p>
+</section>
+
+<section id="configuracion">
+<h2>5. Configuración de open5Gcube</h2>
+<p>Se configura con archivos <strong>.env</strong> en <code>etc/</code>.</p>
+<h3>5.1. local.env</h3>
+<pre>CORENET_DRIVER=bridge
+USRP_IFACE=enp3s0f0
+ENB_HOSTNAME=localhost
+GNB_HOSTNAME=localhost</pre>
+<h3>5.2. settings.env</h3>
+<pre>MCC=001
+MNC=01
+TAC=1
+APN=internet
+NSSAI_SST=1
+NSSAI_SD=ffffff
+NR_BAND=78
+NR_ARFCN=641280</pre>
+<h3>5.3. uedb.env - Suscriptores SIM</h3>
+<pre>001010000052100 F18E5DB0A8B5B8A0304E9113D121DFE3 E83C9CF73E3B9E82E48005A696E86AD8</pre>
+<h3>5.4. networks.env</h3>
+<p>Define subredes e IPs estáticas. Normalmente no necesita modificarse.</p>
+</section>
+
+<section id="uso">
+<h2>6. Uso de open5Gcube</h2>
+<pre>make help
+make docker-build-all
+make docker-build-oai-amf
+make docker-purge-all-images</pre>
+<pre>make run-oairan-open5gs-5g
+# Solo núcleo
+make run-oairan-open5gs-5g-core
+# Solo gNodeB
+make run-oairan-open5gs-5g-gnb</pre>
+<pre>make ctop</pre>
+<p>WebUI en <code>http://&lt;IP_del_host&gt;</code> puerto 80</p>
+</section>
+
+<section id="problemas">
+<h2>7. Problemas Comunes y Buenas Prácticas</h2>
+<table>
+<tr><th>Problema</th><th>Solución</th></tr>
+<tr><td>Contenedores no inician</td><td>Verificar docker ps -a y que make docker-build-all se completó</td></tr>
+<tr><td>No se puede acceder a WebUI</td><td>Verificar sudo systemctl status open5gcube-webui y liberar puerto 80</td></tr>
+<tr><td>Error SSH a hosts RAN</td><td>Ejecutar ssh-copy-id &lt;hostname&gt; desde el Controller</td></tr>
+<tr><td>UE no se registra</td><td>Verificar uedb.env y que el IMSI coincida con UERANSIM</td></tr>
+</table>
+<ul>
+<li>Documenta tus .env para reproducibilidad.</li>
+<li>Usa kernel de baja latencia.</li>
+<li>Monitorea con ctop y docker stats.</li>
+<li>Combina stacks según necesidad (OAI + Open5GS, srsRAN + Free5GC).</li>
+<li>Validado con Samsung Galaxy S25, OnePlus 13, Pixel 9, iPhone 13 Mini, etc.</li>
+</ul>
+</section>
+
+<section class="enlaces" id="enlaces">
+<h2>9. Enlaces Oficiales</h2>
+<ul>
+<li><a href="https://github.com/open5Gcube/open5Gcube" target="_blank">🌐 Repositorio oficial open5Gcube</a></li>
+<li><a href="https://open5gs.org" target="_blank">🧠 Open5GS</a></li>
+<li><a href="https://github.com/aligungr/UERANSIM" target="_blank">📱 UERANSIM</a></li>
+<li><a href="https://www.itu.int/es" target="_blank">🌍 ITU</a></li>
+<li><a href="https://www.osiptel.gob.pe" target="_blank">🇵🇪 OSIPTEL Perú</a></li>
+</ul>
+<p>Paper: open5Gcube: A Modular and Usable Framework for Mobile Network Laboratories (arXiv:2505.14501)</p>
+</section>
+
+<section id="contacto">
+<h2>10. Contáctanos - TelecomConecta UNFV</h2>
+<form onsubmit="enviar(event)">
+<label>Nombre completo:</label>
+<input id="nombre" type="text" placeholder="Ej: Alejandro Vilca" required>
+<label>Correo:</label>
+<input type="email" placeholder="tu-correo@gmail.com" required>
+<label>¿Qué quieres aprender?</label>
+<select>
+<option>Qué es open5Gcube</option>
+<option>Cómo instalar open5Gcube</option>
+<option>Cómo funciona la red 5G</option>
+<option>Proyecto para la UNFV</option>
+</select>
+<label>Mensaje:</label>
+<textarea rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+<button type="submit">Enviar Solicitud 🚀</button>
+<p id="msgOk" style="color:#22c55e;font-weight:bold;display:none;"></p>
+</form>
+</section>
+
+</div>
+
+<aside class="video-lateral" id="video">
+<h3>🎥 Video: Importancia de las Telecomunicaciones</h3>
+<div class="video-chico">
+  <iframe src="https://www.youtube.com/embed/5zukI8PzNcU" title="La importancia de las telecomunicaciones" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+</aside>
+
+</div>
+
+<footer>
+<p>© 2026 TelecomConecta - open5Gcube - UNFV - Proyecto de Alejandro | Hecho con HTML y CSS</p>
+<p><a href="#inicio">Volver arriba ↑</a></p>
+</footer>
+
+<script>
+function actualizarSaludo(){
+  var ahora = new Date();
+  var hora = ahora.getHours();
+  var saludo = document.getElementById('saludo');
+  var texto = "";
+  var emoji = "";
+  if(hora >= 0 && hora < 12){
+    texto = "Muy buenos días";
+    emoji = "🌞";
+    saludo.style.background = "#f59e0b";
+  } else if(hora >= 12 && hora < 18){
+    texto = "Muy buenas tardes";
+    emoji = "🌤️";
+    saludo.style.background = "#f97316";
+  } else {
+    texto = "Muy buenas noches";
+    emoji = "🌙";
+    saludo.style.background = "#1e293b";
+  }
+  var horaFormato = ahora.toLocaleTimeString('es-PE', {hour:'2-digit', minute:'2-digit'});
+  saludo.innerHTML = emoji + " " + texto + " <small>Bienvenido a TelecomConecta - " + horaFormato + "</small>";
+}
+actualizarSaludo();
+setInterval(actualizarSaludo, 60000);
+function enviar(e){
+  e.preventDefault();
+  var n=document.getElementById('nombre').value;
+  var m=document.getElementById('msgOk');
+  m.style.display='block';
+  m.textContent='✅ ¡Gracias '+n+'! Tu solicitud fue recibida.';
+}
+</script>
+</body>
+</html>
