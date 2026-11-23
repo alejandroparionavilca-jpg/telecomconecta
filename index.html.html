@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>TelecomConecta | open5Gcube - Laboratorio de Redes 5G - UNFV</title>
+<style>
+body { font-family: Arial, Helvetica, sans-serif; background-color: #000000; background-image: url('Screenshot%202026-11-21%20163110.png'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed; color: #ffffff; margin: 0px; padding: 0px; }
+header { background-color: #020617; padding: 14px; border-bottom: 4px solid #f97316; }
+header table { border-collapse: collapse; width: 100%; }
+header td { vertical-align: middle; padding: 0px 10px 0px 0px; background-color: #020617 !important; border: none !important; }
+.logo-facultad { width: 280px; background-color: #ffffff; padding: 10px; border: 3px solid #f97316; display: block; }
+#saludo { background-color: #f97316; color: #ffffff; font-weight: bold; text-align: center; padding: 8px; width: 280px; margin-top: 8px; }
+#saludo small { display: block; font-size: 13px; font-weight: normal; color: #fff7ed; }
+header h1 { color: #ffffff; font-size: 48px; margin: 0px; text-align: left; padding-left: 30px; }
+nav { background-color: #f97316; padding: 10px; text-align: center; line-height: 40px; }
+nav a { background-color: #020617; color: #ffffff; text-decoration: none; padding: 10px 14px; margin: 4px; font-weight: bold; display: inline-block; line-height: normal; }
+.hero { text-align: center; padding: 45px 20px; background-color: rgba(0,0,0,0.70); }
+.hero h2 { font-size: 38px; color: #facc15; }
+.btn { background-color: #f97316; color: #ffffff; padding: 14px 28px; text-decoration: none; font-weight: bold; font-size: 18px; }
+.btn2 { background-color: #ffffff; color: #000000; }
+.container { width: 1100px; margin: 0px auto; padding: 20px; }
+section { background-color: rgba(0,0,0,0.78); border: 1px solid #ffffff; padding: 25px; margin-bottom: 25px; }
+section h2 { color: #facc15; border-left: 6px solid #f97316; padding-left: 10px; }
+section h3 { color: #22d3ee; margin: 18px 0px 8px 0px; }
+.caja { background-color: #ffffff; color: #020617; padding: 20px; margin: 15px 0px; text-align: center; }
+.caja h3 { color: #020617; }
+table { width: 100%; border-collapse: collapse; background-color: #ffffff; color: #020617; }
+th { background-color: #020617; color: #ffffff; padding: 12px; text-align: left; }
+td { padding: 12px; text-align: left; border-bottom: 1px solid #dddddd; }
+code { background-color: #020617; color: #facc15; padding: 3px 8px; }
+pre { background-color: #020617; color: #ffffff; padding: 14px; border: 1px solid #f97316; }
+ul, ol { margin-left: 20px; margin-bottom: 10px; }
+li { margin-bottom: 6px; }
+.enlaces a { color: #facc15; font-weight: bold; }
+footer { text-align: center; background-color: rgba(0,0,0,0.80); padding: 20px; color: #94a3b8; }
+footer a { color: #facc15; }
+</style>
+</head>
+<body>
+
+<header>
+<table>
+<tr>
+<td>
+<img class="logo-facultad" src="Screenshot%202026-11-19%20104813.png" alt="Facultad de Ingeniería Electrónica e Informática - UNFV">
+<div id="saludo">Cargando saludo...</div>
+</td>
+<td>
+<h1>TelecomConecta</h1>
+</td>
+</tr>
+</table>
+</header>
+
+<nav>
+<a href="#inicio">Inicio</a>
+<a href="#que-es">¿Qué es?</a>
+<a href="#arquitectura">Arquitectura</a>
+<a href="#flujo">Flujo de Trabajo</a>
+<a href="#relevancia">Relevancia</a>
+<a href="#requisitos">Requisitos</a>
+<a href="#instalacion">Instalación</a>
+<a href="#configuracion">Configuración</a>
+<a href="#uso">Uso</a>
+<a href="#problemas">Problemas</a>
+<a href="#buenas-practicas">Buenas Prácticas</a>
+<a href="#recursos">Recursos</a>
+</nav>
+
+<div class="hero" id="inicio">
+<h2>TelecomConecta + open5Gcube</h2>
+<a class="btn" href="#que-es">¿Qué es open5Gcube?</a>
+<a class="btn btn2" href="#instalacion">Cómo se Instala</a>
+</div>
+
+<div class="container">
+
+<section id="que-es">
+<h2>Parte I: Teoría de open5Gcube</h2>
+<h2>1. ¿Qué es open5Gcube?</h2>
+<p><strong>open5Gcube</strong> es un framework modular de código abierto diseñado para construir y gestionar laboratorios de redes móviles. Integra múltiples proyectos de redes móviles de código abierto (2G, 4G y 5G) en un entorno de gestión unificado. Su propósito es facilitar experimentos reproducibles en investigación, pruebas y educación, permitiendo a los usuarios desplegar redes de acceso radio (RAN), redes centrales (CN) y componentes de soporte de manera personalizable y extensible.</p>
+<p>El framework aborda un desafío fundamental en la investigación de redes móviles: la integración de componentes RAN y CN de código abierto con equipos de usuario (UE) del mundo real. Mientras que las soluciones comerciales son estables pero costosas y cerradas, las alternativas de código abierto ofrecen flexibilidad pero presentan una curva de aprendizaje pronunciada y problemas de compatibilidad. open5Gcube combina lo mejor de ambos mundos: la adaptabilidad del software de código abierto con la facilidad de uso necesaria para configuraciones experimentales.</p>
+</section>
+
+<section id="arquitectura">
+<h2>2. Arquitectura y Componentes</h2>
+<h3>2.1. Contenedores Docker y Docker Compose</h3>
+<p>open5Gcube utiliza contenedores Docker y Docker Compose para el despliegue aislado de servicios. Cada componente de la red móvil (funciones de red del núcleo 5G, gNodeB, UE, etc.) se ejecuta en su propio contenedor, lo que garantiza:</p>
+<ul>
+<li><strong>Aislamiento:</strong> Los servicios no interfieren entre sí.</li>
+<li><strong>Reproducibilidad:</strong> Las configuraciones son consistentes en diferentes entornos.</li>
+<li><strong>Portabilidad:</strong> El framework puede desplegarse en diversas plataformas de hardware.</li>
+</ul>
+<p>La orquestación remota de contenedores se realiza mediante SSH y Docker-outside-of-Docker (DooD), lo que permite distribuir la carga de trabajo en múltiples hosts físicos.</p>
+<h3>2.2. Stacks de Red Pre-construidos</h3>
+<p>open5Gcube ofrece stacks de red pre-construidos que representan diferentes combinaciones tecnológicas. Por ejemplo, un stack puede combinar OpenAirInterface (OAI) como RAN con Open5GS como núcleo de red. Esta modularidad permite a los investigadores seleccionar y combinar diferentes implementaciones de código abierto según sus necesidades experimentales.</p>
+<h3>2.3. Componentes Principales Integrados</h3>
+<p>El framework integra los siguientes proyectos de código abierto:</p>
+<div class="caja"><h3>Open5GS</h3><p>Implementación de núcleo 5G (5GC) basada en especificaciones 3GPP. Incluye funciones como AMF (Access and Mobility Management Function), SMF (Session Management Function), UPF (User Plane Function), NRF (Network Repository Function), entre otras.</p></div>
+<div class="caja"><h3>OpenAirInterface (OAI)</h3><p>Plataforma de código abierto para RAN que implementa estaciones base (eNB/gNB) y equipos de usuario (UE).</p></div>
+<div class="caja"><h3>UERANSIM</h3><p>Simulador de UE y RAN para 5G. Emula el comportamiento de un equipo de usuario 5G en diversos escenarios de despliegue.</p></div>
+<div class="caja"><h3>srsRAN</h3><p>Suite de software de código abierto para RAN 4G y 5G, compatible con hardware SDR (Software Defined Radio).</p></div>
+<div class="caja"><h3>osmocom</h3><p>Conjunto de proyectos para redes móviles 2G y 3G.</p></div>
+<div class="caja"><h3>pySim</h3><p>Herramientas para la provisión de tarjetas SIM.</p></div>
+<h3>2.4. WebUI para Control y Monitoreo</h3>
+<p>open5Gcube incluye una interfaz web (WebUI) que permite el control visual y el monitoreo de los despliegues de los stacks. Sus casos de uso principales incluyen:</p>
+<ul>
+<li>Configurar, iniciar y detener stacks específicos.</li>
+<li>Visualizar el estado de salud de los contenedores en tiempo real.</li>
+<li>Acceder a los logs de los servicios.</li>
+<li>Gestionar la configuración de VoLTE basada en Open5GS + Kamailio IMS.</li>
+</ul>
+<h3>2.5. Soporte para Hardware SDR y Configuraciones Emuladas</h3>
+<p>open5Gcube soporta tanto hardware SDR físico (USRP X310/B210) como configuraciones emuladas. Esto permite a los estudiantes sin acceso a hardware costoso practicar con simulaciones, mientras que los investigadores pueden validar sus experimentos en entornos reales.</p>
+<h3>2.6. Redes Virtuales Docker</h3>
+<p>El framework utiliza tres redes virtuales Docker para gestionar la conectividad:</p>
+<ul>
+<li><strong>corenet:</strong> Red para la comunicación entre las funciones del núcleo de red. Utiliza macvlan para asignar direcciones IP directamente desde la red física, facilitando la integración con equipos externos.</li>
+<li><strong>rannet:</strong> Red para la comunicación entre la RAN y el núcleo.</li>
+<li><strong>uenet:</strong> Red para la comunicación de los equipos de usuario.</li>
+</ul>
+</section>
+
+<section id="flujo">
+<h2>3. Flujo de Trabajo Típico</h2>
+<p>Un flujo de trabajo típico con open5Gcube sigue estos pasos:</p>
+<ol>
+<li><strong>Preparación del entorno:</strong> Instalación de dependencias (Docker, Docker Compose, SSH) en el host o hosts.</li>
+<li><strong>Clonación del repositorio:</strong> Obtención del código fuente desde GitHub.</li>
+<li><strong>Configuración:</strong> Ajuste de variables de entorno en archivos .env para definir IPs, PLMN, bandas, etc.</li>
+<li><strong>Construcción de imágenes:</strong> Ejecución de make build-cacher-start docker-build-all para construir todas las imágenes Docker de los subproyectos. Este proceso puede tardar varias horas.</li>
+<li><strong>Despliegue del stack:</strong> Selección y despliegue de un stack pre-construido desde la WebUI o mediante línea de comandos.</li>
+<li><strong>Verificación:</strong> Comprobación del estado de los contenedores y conectividad de los UEs.</li>
+<li><strong>Experimentación:</strong> Realización de pruebas (ping, iperf3, captura de tráfico) y recolección de datos.</li>
+</ol>
+</section>
+
+<section id="relevancia">
+<h2>4. Relevancia para la Formación en Telecomunicaciones</h2>
+<p>open5Gcube es una herramienta pedagógica de gran valor para estudiantes de telecomunicaciones porque:</p>
+<ul>
+<li><strong>Democratiza el acceso:</strong> Permite experimentar con redes 5G sin necesidad de infraestructura costosa.</li>
+<li><strong>Integra múltiples tecnologías:</strong> Los estudiantes trabajan con RAN, núcleo y UE en un solo entorno.</li>
+<li><strong>Facilita la reproducibilidad:</strong> Los experimentos pueden replicarse y compararse.</li>
+<li><strong>Prepara para el mundo laboral:</strong> Las habilidades en Docker, orquestación de servicios y configuración de redes 5G son altamente demandadas.</li>
+</ul>
+</section>
+
+<section id="requisitos">
+<h2>Guía Completa de Instalación y Aplicación de open5Gcube</h2>
+<h2>1. Introducción</h2>
+<p>open5Gcube es un framework modular de código abierto diseñado para construir y gestionar laboratorios de redes móviles. Integra proyectos de código abierto de redes 2G, 4G y 5G en un entorno de gestión unificado, permitiendo a investigadores, estudiantes y profesionales desplegar redes de acceso radio (RAN), redes centrales (CN) y componentes de soporte de manera personalizable y reproducible. El framework utiliza contenedores Docker para el aislamiento de servicios, stacks pre-construidos que combinan diferentes tecnologías (como OAI-RAN con Open5GS), y una interfaz web (WebUI) para el control visual y monitoreo de los despliegues.</p>
+<h2>2. Requisitos Previos</h2>
+<h3>2.1. Hardware Recomendado</h3>
+<table>
+<tr><th>Componente</th><th>Mínimo</th><th>Recomendado</th></tr>
+<tr><td>CPU</td><td>x86_64, 4 núcleos</td><td>8+ núcleos (Intel i9 o superior)</td></tr>
+<tr><td>RAM</td><td>16 GB</td><td>32 GB (92 GB para experimentos prolongados)</td></tr>
+<tr><td>Almacenamiento</td><td>50 GB libres</td><td>200 GB (los archivos de traza son grandes)</td></tr>
+<tr><td>Sistema Operativo</td><td>Ubuntu 22.04 LTS</td><td>Ubuntu 22.04 LTS</td></tr>
+<tr><td>Kernel</td><td>5.15+</td><td>6.8.0 (con soporte TC-BPF)</td></tr>
+</table>
+<p>Fuente: Guía de configuración de plataforma para Open5GS + UERANSIM.</p>
+<h3>2.2. Configuración del BIOS</h3>
+<p>Para un rendimiento óptimo, se recomienda deshabilitar las siguientes funciones desde el BIOS:</p>
+<ol>
+<li>Hyper-Threading (Hyperthreading Disabled)</li>
+<li>C-States (C-State Disabled)</li>
+<li>Intel SpeedStep (Deshabilitado)</li>
+<li>CPU Frequency Control y P-States (deshabilitados)</li>
+</ol>
+<p>Esto reduce la deriva de las frecuencias portadoras y mejora la estabilidad del sistema.</p>
+<h3>2.3. Sistema Operativo</h3>
+<p>Ubuntu 22.04 LTS es la distribución recomendada como host base. Se recomienda instalar el kernel de baja latencia para garantizar tiempos de respuesta predecibles en aplicaciones 5G:</p>
+<pre>sudo apt install linux-image-lowlatency linux-headers-lowlatency
+sudo apt install linux-tools-lowlatency</pre>
+</section>
+
+<section id="instalacion">
+<h2>3. Instalación Paso a Paso</h2>
+<h3>3.1. Instalar Paquetes Requeridos</h3>
+<pre>sudo apt update &amp;&amp; sudo apt upgrade -y
+sudo apt install -y linux-tools-common net-tools make git-lfs \
+  ca-certificates curl gnupg openssh-server python3-virtualenv</pre>
+<p>Fuente: Repositorio oficial de open5Gcube.</p>
+<h3>3.2. Clonar el Repositorio</h3>
+<pre>git clone https://github.com/open5Gcube/open5Gcube/
+cd open5Gcube</pre>
+<h3>3.3. Instalar Docker Engine</h3>
+<p>open5Gcube utiliza versiones fijas de Docker para garantizar la reproducibilidad. El script de instalación se encuentra en modules/base/docker/o5gc/install-docker.sh y se ejecuta con:</p>
+<pre>make system-install-docker</pre>
+<p>Fuente: Repositorio oficial de open5Gcube.</p>
+<p>Después de la instalación, agrega tu usuario al grupo docker para evitar usar sudo:</p>
+<pre>sudo usermod -aG docker $USER</pre>
+<p>Cierra sesión y vuelve a iniciarla para que los cambios surtan efecto.</p>
+<h3>3.4. Instalar el Servicio de Inicio de open5Gcube</h3>
+<pre>make systemd-install-unit</pre>
+<p>Este comando instala el servicio systemd que permite iniciar open5Gcube automáticamente al arrancar el sistema.</p>
+<h3>3.5. Construir las Imágenes Docker</h3>
+<p>Este paso es el más largo (puede tardar varias horas) y construye todas las imágenes Docker de los subproyectos integrados:</p>
+<pre>make build-cacher-start docker-build-all</pre>
+<p>Nota: Ten paciencia y toma un café. Este proceso compila todas las imágenes necesarias para los stacks de red.</p>
+<h3>3.6. Iniciar la WebUI</h3>
+<p>Una vez construidas las imágenes, inicia la interfaz web:</p>
+<pre>make webui-start</pre>
+<p>La WebUI se inicia automáticamente al arrancar el sistema y escucha en el puerto HTTP estándar (80). Accede a ella desde tu navegador en http://&lt;IP_del_host&gt;.</p>
+</section>
+
+<section id="configuracion">
+<h2>4. Configuración</h2>
+<p>La configuración de open5Gcube se realiza a través de archivos de entorno (.env) ubicados en el directorio etc/.</p>
+<h3>4.1. Archivo local.env (Configuración del Sistema)</h3>
+<p>Este archivo define parámetros específicos de la instalación:</p>
+<table>
+<tr><th>Parámetro</th><th>Descripción</th><th>Valores posibles</th></tr>
+<tr><td>CLOCK_SRC</td><td>Fuente de reloj para el USRP</td><td>external o internal</td></tr>
+<tr><td>CORENET_DRIVER</td><td>Driver de red para el núcleo</td><td>macvlan (múltiples hosts) o bridge (un solo host)</td></tr>
+<tr><td>CORENET_MACVLAN_IFACE</td><td>Interfaz padre para macvlan</td><td>Ej: eno1</td></tr>
+<tr><td>USRP_IFACE</td><td>Interfaz del adaptador 10G para USRP X310</td><td>Ej: enp3s0f0</td></tr>
+<tr><td>ENB_HOSTNAME</td><td>Hostname del host RAN para eNB</td><td>Ej: o5gc2</td></tr>
+<tr><td>GNB_HOSTNAME</td><td>Hostname del host RAN para gNB</td><td>Ej: o5gc3</td></tr>
+</table>
+<p>Ejemplo de configuración para un solo host:</p>
+<pre>CORENET_DRIVER=bridge
+USRP_IFACE=enp3s0f0
+ENB_HOSTNAME=localhost
+GNB_HOSTNAME=localhost</pre>
+<h3>4.2. Archivo settings.env (Configuración de Red Móvil)</h3>
+<p>Define parámetros de la red móvil como PLMN, TAC, APN y frecuencias:</p>
+<pre># Mobile Network
+MCC=001
+MNC=01
+TAC=1
+APN=internet
+# Network Slice Selection Assistance Information
+NSSAI_SST=1
+NSSAI_SD=ffffff
+# 5G Band
+NR_BAND=78
+NR_ARFCN=641280</pre>
+<h3>4.3. Archivo uedb.env (Base de Datos de Suscriptores)</h3>
+<p>Contiene las credenciales de las tarjetas SIM (IMSI, Key, OPc). Cada línea representa un suscriptor:</p>
+<pre>001010000052100 F18E5DB0A8B5B8A0304E9113D121DFE3 E83C9CF73E3B9E82E48005A696E86AD8
+001010000052101 F18E5DB0A8B5B8A0304E9113D121DFE3 E83C9CF73E3B9E82E48005A696E86AD8 12345678</pre>
+<p>Fuente: Repositorio oficial de open5Gcube.</p>
+<h3>4.4. Archivo networks.env (Configuración de Redes Docker)</h3>
+<p>Define las subredes y direcciones IP estáticas de los contenedores. Normalmente no necesita modificarse.</p>
+</section>
+
+<section id="uso">
+<h2>5. Uso de open5Gcube</h2>
+<h3>5.1. Comandos Principales (Makefile)</h3>
+<p>El Makefile es el punto de entrada central para todos los comandos. Todos los comandos comienzan con make:</p>
+<pre># Ver todos los targets disponibles
+make help
+# Construir todas las imágenes Docker
+make docker-build-all
+# Construir una imagen individual (ejemplo: AMF de OAI)
+make docker-build-oai-amf
+# Eliminar todas las imágenes
+make docker-purge-all-images</pre>
+<p>Fuente: Repositorio oficial de open5Gcube.</p>
+<h3>5.2. Ejecutar un Stack de Red</h3>
+<p>Para cada stack definido en el framework, existe un comando make run-. Por ejemplo, para ejecutar un stack 5G-SA compuesto por OAI-RAN y Open5GS:</p>
+<pre>make run-oairan-open5gs-5g</pre>
+<p>Para detener el stack, presiona Ctrl+C.</p>
+<p>Iniciar componentes individualmente:</p>
+<pre># Solo el núcleo de la red
+make run-oairan-open5gs-5g-core
+# Solo el gNodeB
+make run-oairan-open5gs-5g-gnb</pre>
+<p>Fuente: Repositorio oficial de open5Gcube.</p>
+<h3>5.3. Monitoreo con ctop</h3>
+<p>Para una vista en tiempo real de los contenedores en ejecución:</p>
+<pre>make ctop</pre>
+<h3>5.4. Interfaz Web (WebUI)</h3>
+<p>La WebUI proporciona una interfaz gráfica para:</p>
+<ul>
+<li>Ver el estado de los contenedores: logs, salud, información detallada.</li>
+<li>Iniciar y detener stacks: con opción de ajustar configuraciones.</li>
+<li>Leer y escribir tarjetas SIM: mediante pySim.</li>
+<li>Acceder a enlaces de servicios web: proporcionados por el stack.</li>
+</ul>
+<p>Accede a la WebUI en http://&lt;IP_del_host&gt; (puerto 80 por defecto).</p>
+</section>
+
+<section id="problemas">
+<h2>7. Solución de Problemas Comunes</h2>
+<table>
+<tr><th>Problema</th><th>Posible Causa</th><th>Solución</th></tr>
+<tr><td>Alto uso de CPU</td><td>Falta configurar Idle-PC en routers IOS</td><td>Acceder a la configuración del router y ajustar Idle-PC</td></tr>
+<tr><td>Los contenedores no inician</td><td>RAM insuficiente o imágenes no construidas</td><td>Verificar docker ps -a y asegurar que make docker-build-all se completó</td></tr>
+<tr><td>No se puede acceder a la WebUI</td><td>Puerto 80 ocupado o servicio no iniciado</td><td>Verificar sudo systemctl status open5gcube-webui y liberar el puerto</td></tr>
+<tr><td>Error de conexión SSH a hosts RAN</td><td>Claves SSH no configuradas</td><td>Ejecutar ssh-copy-id &lt;hostname&gt; desde el Controller</td></tr>
+<tr><td>El UE no se registra</td><td>Credenciales SIM incorrectas</td><td>Verificar uedb.env y que el IMSI coincida con la configuración de UERANSIM</td></tr>
+</table>
+</section>
+
+<section id="buenas-practicas">
+<h2>8. Buenas Prácticas</h2>
+<ol>
+<li><strong>Documenta tus configuraciones:</strong> Guarda los archivos .env personalizados en un repositorio separado para reproducibilidad.</li>
+<li><strong>Usa el kernel de baja latencia:</strong> Esencial para experimentos de rendimiento en 5G.</li>
+<li><strong>Monitorea los recursos:</strong> Utiliza ctop y docker stats para detectar cuellos de botella.</li>
+<li><strong>Aprovecha la modularidad:</strong> Combina diferentes stacks (OAI + Open5GS, srsRAN + Free5GC) según tus necesidades experimentales.</li>
+<li><strong>Realiza pruebas de compatibilidad:</strong> open5Gcube ha sido validado con múltiples smartphones comerciales (Samsung Galaxy S25, OnePlus 13, Google Pixel 9, iPhone 13 Mini, etc.).</li>
+</ol>
+</section>
+
+<section class="enlaces" id="recursos">
+<h2>9. Recursos Adicionales</h2>
+<ul>
+<li><strong>Repositorio oficial:</strong> <a href="https://github.com/open5Gcube/open5Gcube">github.com/open5Gcube/open5Gcube</a></li>
+<li><strong>Documentación:</strong> Directorio Doc/ en el repositorio (architecture.md, installation.md, user_guide.md, stacks.md)</li>
+<li><strong>Paper de referencia:</strong> open5Gcube: A Modular and Usable Framework for Mobile Network Laboratories (arXiv:2505.14501)</li>
+<li><strong>Open5GS:</strong> <a href="https://open5gs.org">open5gs.org</a></li>
+<li><strong>UERANSIM:</strong> <a href="https://github.com/aligungr/UERANSIM">github.com/aligungr/UERANSIM</a></li>
+<li><strong>Guía de laboratorio Open5GS + UERANSIM:</strong> <a href="https://github.com/TTU-CWBT/Lab-2-Open5GS-UERANSIM">github.com/TTU-CWBT/Lab-2-Open5GS-UERANSIM</a></li>
+</ul>
+<p>Esta guía proporciona un camino estructurado desde la instalación hasta la aplicación práctica de open5Gcube. Con ella se podrán desplegar redes móviles completas (2G, 4G y 5G), experimentar con diferentes combinaciones de RAN y Core y analizar el tráfico generado, adquiriendo habilidades directamente aplicables al sector de las telecomunicaciones.</p>
+</section>
+
+</div>
+
+<footer>
+<p>2026 TelecomConecta - open5Gcube - UNFV</p>
+<p><a href="#inicio">Volver arriba</a></p>
+</footer>
+
+<script>
+function actualizarSaludo(){
+  var ahora = new Date();
+  var hora = ahora.getHours();
+  var saludo = document.getElementById('saludo');
+  var texto = "";
+  if(hora >= 0 && hora < 12){
+    texto = "Muy buenos dias";
+    saludo.style.background = "#f59e0b";
+  } else if(hora >= 12 && hora < 18){
+    texto = "Muy buenas tardes";
+    saludo.style.background = "#f97316";
+  } else {
+    texto = "Muy buenas noches";
+    saludo.style.background = "#1e293b";
+  }
+  var horaFormato = ahora.toLocaleTimeString('es-PE', {hour:'2-digit', minute:'2-digit'});
+  saludo.innerHTML = texto + " <small>Bienvenido a TelecomConecta - " + horaFormato + "</small>";
+}
+actualizarSaludo();
+setInterval(actualizarSaludo, 60000);
+</script>
+</body>
+</html>
